@@ -5,13 +5,11 @@
 import json
 import dateutil.parser
 import babel
-from flask import Flask, render_template, request, Response, flash, redirect, url_for, jsonify, abort
-# Formatting of dates and times in Flask templates 
-from flask_moment import Moment
+from flask import Flask, render_template, request, Response, flash, redirect, url_for, abort
+from flask_moment import Moment # Formatting of dates and times in Flask templates 
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
-# from flask_wtf import FlaskForm
 from sqlalchemy.orm import backref
 from forms import *
 from flask_migrate import Migrate
@@ -618,10 +616,11 @@ def shows():
         render_template (Object) : html template for flask 
   """
   data=[]
+  # join table by id and set Venue.name as venue_name, Artist.name as artist_name 
   shows_query = Show.query.join(Venue, (Venue.id == Show.venue_id))\
                     .join(Artist, (Artist.id == Show.artist_id))\
-                    .with_entities(Show.venue_id, Venue.name.label('venue_name'),\
-                                   Show.artist_id, Artist.name.label('artist_name'),\
+                    .with_entities(Show.artist_id, Artist.name.label('artist_name'),\
+                                   Show.venue_id, Venue.name.label('venue_name'),\
                                    Artist.image_link,\
                                    Show.start_time)
   
