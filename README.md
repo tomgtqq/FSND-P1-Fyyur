@@ -94,7 +94,13 @@ createdb fyyurapp
 Create tables
 ```
 flask db migrate
-flask db upgrade
+```
+```
+flask db upgrade 
+```
+or
+```
+flask db downgrade
 ```
 ### Run Webapp
 
